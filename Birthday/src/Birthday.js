@@ -1,27 +1,22 @@
 import React, { useState } from 'react'
-import data from "./data"
 import List from "./List"
+import data from "./data"
+
 const Birthday = () => 
 {
   const [birthday, setBirthday] = useState(data)
 
-  // To remove all the birthday list
-  const removeList = () =>
+  const removeAll = () =>
   {
     setBirthday([])
   }
-
   return (
-    <> 
-      <h3>{birthday.length}birthdays today</h3>
-      <div>
-        <List birthday = {birthday} />
-        <button onClick = {removeList}>Clear All</button>
-      </div>
-    </>
+    <div>
+      <h2>{data.length} birthdays today</h2>
+      <List birthday = {birthday} />
+      <button onClick = {removeAll}>Clear All</button>
+    </div>
   )
 }
 
 export default Birthday
-
-

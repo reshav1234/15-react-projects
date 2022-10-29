@@ -29,4 +29,9 @@ export default [
         age: 29,
         
       },
+      {
+        id: 6,
+        name: 'Reshav Thapa',
+        age: 20,
+      },
 ]

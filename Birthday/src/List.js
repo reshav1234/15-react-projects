@@ -1,15 +1,18 @@
 import React from 'react'
 
-const List = ({birthday}) => 
-{
+
+// We will list the people having birthdays
+
+const List = ({birthday}) => {
   return (
     <div>
-        {birthday.map((event) => {
-            const {id, name, age} = event;
+        {birthday.map((people) => {
+            const {id, name, age } = people
             return(
-                <div>
+                <div key = {id}>
                     <h4>{name}</h4>
-                    <p>{age}Years</p>
+                    <h4>{age}</h4>
+
                 </div>
             )
         })}
