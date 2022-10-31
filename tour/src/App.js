@@ -1,6 +1,6 @@
-import React,{useState, useEffect} from 'react'
-import Loading from './Loading'
+import React, { useState, useEffect } from 'react'
 import Tours from "./Tours"
+import Loading from './Loading'
 const url = "https://course-api.com/react-tours-project"
 
 const App = () => 
@@ -8,39 +8,55 @@ const App = () =>
   const [loading, setLoading] = useState(true)
   const [tours, setTours] = useState([])
 
-  // Fetching data
-  const fetchTours = async() =>
+  const removeTours = (id) =>
+  {
+    const newTours = tours.filter((tour) => tour.id !== id)
+    setTours(newTours)
+  }
+
+  const fetchTour = async() =>
   {
     setLoading(true)
-    try
+    try 
     {
-      setLoading(false)
       const response = await fetch(url)
-      const tours = await response.json(url)
-      console.log(tours)
+      const tours = await response.json()
+      setLoading(false)
+      setTours(tours)
     }catch(error){
       setLoading(false)
-      console.log(error) // Catch error
+      console.log(error)
     }
   }
 
   useEffect(() => {
-    fetchTours()
+    fetchTour()
   }, [])
 
-
-  // We will set one return for loading and another return for another loading
-  if(loading) // If loading is true
+  // We are going to show two returs
+  // If loading is true
+  if(loading)
   {
-    return (
+    return(
+      <Loading />
+    )
+  }
+
+  if(tours.length === 0)
+  {
+    return(
       <div>
-        <Loading />
+        <h2>
+          No tours left
+        </h2>
+        <button onClick = {() => fetchTour()}>Refresh</button>
       </div>
     )
   }
+
   return (
     <div>
-      <Tours tours = {tours} />
+      <Tours tours = {tours} removeTours = {removeTours} />
     </div>
   )
 }
